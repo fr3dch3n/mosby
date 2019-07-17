@@ -1,0 +1,11 @@
+- name: service1
+  context:
+    - service1
+  backend_configuration:
+    backends:
+      - host: service1.example.com
+        port: 443
+    first_byte_timeout: 2
+    between_bytes_timeout: 2
+  probe:
+    url: "/internal/health"

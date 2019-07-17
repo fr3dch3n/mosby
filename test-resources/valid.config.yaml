@@ -1,0 +1,25 @@
+- name: service1
+  context:
+    - service1
+  backend_configuration:
+    backends:
+      - host: service1.example.com
+        port: 443
+    connect_timeout: 2
+    first_byte_timeout: 2
+    between_bytes_timeout: 2
+  probe:
+    url: "/internal/health"
+
+- name: service2
+  context:
+    - service2
+  backend_configuration:
+    backends:
+      - host: service2.example.com
+        port: 443
+    connect_timeout: 2
+    first_byte_timeout: 2
+    between_bytes_timeout: 2
+  probe:
+    url: "/internal/health"

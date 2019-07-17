@@ -99,7 +99,7 @@ func Validate(input []byte) error {
 
 func main() {
 	app := cli.NewApp()
-	app.Name = "config-validator"
+	app.Name = "mosby"
 	app.Usage = "I validate YOUR config. Yey"
 	app.HideVersion = true
 

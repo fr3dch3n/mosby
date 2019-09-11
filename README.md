@@ -17,10 +17,28 @@ _Mosby_ checks if a yaml-file contains one or more of the following-configs:
     between_bytes_timeout: 2
   probe:
     url: "/internal/health"
+  local: true
 ```
 
-## Installation
+**Current stable version: `v0.1.0`**
 
+## Installation
+Download pre-built binaries:
+```
+# for ubuntu
+wget -O mosby https://github.com/fr3dch3n/mosby/releases/download/v0.1.0/mosby_amd64
+
+# for alpine
+wget -O mosby https://github.com/fr3dch3n/mosby/releases/download/v0.1.0/mosby_alpine
+
+# for mac
+wget -O mosby https://github.com/fr3dch3n/mosby/releases/download/v0.1.0/mosby_darwin
+
+# for windows
+wget -O mosby https://github.com/fr3dch3n/mosby/releases/download/v0.1.0/mosby.exe
+```
+
+Build binary yourself:
 ```bash
 git clone https://github.com/fr3dch3n/mosby
 cd mosby
@@ -47,8 +65,11 @@ Run `./mosby help` to see all possibilities.
 
 ## Release History
 
-* 0.0.1
+* v0.0.1
     * initial release
+* v0.1.0
+    * local field is now supported
+    * non-specified fields result in an error
 
 ## Meta
 

@@ -62,7 +62,7 @@ type ConfigElement struct {
 	Local                bool                 `yaml:"local"`
 }
 
-func (c *ConfigElement) IsValid() error {
+func (c *ConfigElement) IsValid(checkLocal bool) error {
 	backendValidationErr := c.BackendConfiguration.IsValid()
 	if backendValidationErr != nil {
 		return backendValidationErr
@@ -76,10 +76,14 @@ func (c *ConfigElement) IsValid() error {
 		return errors.New("name and context must not be empty")
 	}
 
+	if checkLocal && c.Local == true {
+		return errors.New("local: true is not allowed in non-local environments")
+	}
+
 	return nil
 }
 
-func Validate(input []byte) error {
+func Validate(input []byte, checkLocal bool) error {
 	var config []ConfigElement
 
 	err := yaml.UnmarshalStrict(input, &config)
@@ -98,11 +102,12 @@ func Validate(input []byte) error {
 	}
 
 	for _, c := range config {
-		err = c.IsValid()
+		err = c.IsValid(checkLocal)
 		if err != nil {
 			return err
 		}
 	}
+
 	return nil
 }
 
@@ -113,11 +118,17 @@ func main() {
 	app.HideVersion = true
 
 	var path string
+	checkLocal := false
 	app.Flags = []cli.Flag{
 		cli.StringFlag{
 			Name:        "path, p",
 			Usage:       "path to config-file",
 			Destination: &path,
+		},
+		cli.BoolFlag{
+			Name:        "fail-on-local, fl",
+			Usage:       "fail on local-field",
+			Destination: &checkLocal,
 		},
 	}
 
@@ -131,7 +142,7 @@ func main() {
 		if err != nil {
 			log.Fatal(err)
 		}
-		return Validate(data)
+		return Validate(data, checkLocal)
 	}
 
 	err := app.Run(os.Args)

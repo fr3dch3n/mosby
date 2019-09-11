@@ -59,6 +59,7 @@ type ConfigElement struct {
 	Context              []string             `yaml:"context"`
 	BackendConfiguration BackendConfiguration `yaml:"backend_configuration"`
 	Probe                Probe                `yaml:"probe"`
+	Local                bool                 `yaml:"local"`
 }
 
 func (c *ConfigElement) IsValid() error {

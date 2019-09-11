@@ -75,6 +75,7 @@ Run `./mosby help` to see all possibilities.
 * switch to [cobra](https://github.com/spf13/cobra)
 * increase test-coverage
 * parameter to specify if error should occur on local-flag
+* create test-configs at runtime
 
 ## Meta
 

@@ -7,6 +7,8 @@ import (
 	"io/ioutil"
 	"log"
 	"os"
+	"regexp"
+	"strings"
 )
 
 type Backend struct {
@@ -79,8 +81,14 @@ func (c *ConfigElement) IsValid() error {
 func Validate(input []byte) error {
 	var config []ConfigElement
 
-	err := yaml.Unmarshal(input, &config)
+	err := yaml.UnmarshalStrict(input, &config)
 	if err != nil {
+		if strings.Contains(err.Error(), "not found in type") {
+			r := regexp.MustCompile(`.+field (.*?) not found in type.+`)
+			field := r.FindStringSubmatch(err.Error())[1]
+			return errors.New("field " + field + " is not supported")
+		}
+
 		return err
 	}
 

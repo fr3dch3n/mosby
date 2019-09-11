@@ -36,5 +36,19 @@ func TestValidate(t *testing.T) {
 
 		assert.Equal(t, errors.New("backend configuration not valid"), result)
 	})
+	t.Run("unknown parameter should result in error", func(t *testing.T) {
+		input, _ := ioutil.ReadFile("test-resources/unknown.parameter.yaml")
+
+		result := Validate(input)
+
+		assert.Equal(t, errors.New("field bar is not supported"), result)
+	})
+	t.Run("nested unknown parameter should result in error", func(t *testing.T) {
+		input, _ := ioutil.ReadFile("test-resources/nested.unknown.parameter.yaml")
+
+		result := Validate(input)
+
+		assert.Equal(t, errors.New("field foo is not supported"), result)
+	})
 
 }

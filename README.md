@@ -57,7 +57,7 @@ make mosby_darwin
 mosby.exe
 ```
 
-## Usage example\
+## Usage example
 
 `./mosby --path "test-resources/valid.config.yaml"`
 

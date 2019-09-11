@@ -71,6 +71,11 @@ Run `./mosby help` to see all possibilities.
     * local field is now supported
     * non-specified fields result in an error
 
+## ToDos
+* switch to [cobra](https://github.com/spf13/cobra)
+* increase test-coverage
+* parameter to specify if error should occur on local-flag
+
 ## Meta
 
 [@fr3dch3n](https://twitter.com/fr3dch3n)
